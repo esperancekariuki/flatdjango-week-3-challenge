@@ -2,8 +2,19 @@ let URL = 'https://flatdjango-week-3-challenge.vercel.app/db.json'
 const listHolder = document.getElementById('films')
 document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementsByClassName('film item')[0].remove()
+    fetchOne(URL);
     fetchMovies(URL)
 })
+
+/**fetch 1 movie */
+function fetchOne(URL){
+    fetch(URL).then((response) => response.json())
+    .then(data => {
+        setUpMovieDetails(data.films[0]);
+    })
+}
+
+
 //Create fetch function to get the data from the db.json
 function fetchMovies(URL){
     fetch(URL)
