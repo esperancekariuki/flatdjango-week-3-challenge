@@ -1,51 +1,73 @@
-const section = document.querySelector('section')
-
-//get data from the json-server
-fetch('http://localhost:3000/films')
-.then(function (res){
-    return res.json()
+let URL = 'http://localhost:3000/films'
+const listHolder = document.getElementById('films')
+document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementsByClassName('film item')[0].remove()
+    fetchMovies(URL)
 })
-.then(function(res){
-    console.log(res)
-    
-    let output = ""
-    for(let i = 0; i<res.length; i++){
-        // const btn = document.querySelector('button')
-        // let tickets = parseInt(`${res[i].capacity}`) - parseInt(`${res[i].tickets_sold}`);
-        // const availableTickets = btn.addEventListener('click', function (){
-            
-        //     newTickets = tickets - 1;
-
-        // })
-        // const button = document.querySelector("#button");
-        // console.log(button)
-        // const availableTickets = document.querySelector("span");
-        // console.log(availableTickets)
-        let tickets = parseInt(`${res[i].capacity}`) - parseInt(`${res[i].tickets_sold}`)
-        const handleDecrement = () => {
-            
-            tickets--;
-            
-          };
-        // button.addEventListener("click", handleDecrement);
-        // document.querySelector("img").src = `${res[i].poster}`;
-
-        
-        
-         output += `<div class="filmTitle">
-         <h2 class="title">${res[i].title}</h2>
-        
-         <img src="${res[i].poster}" alt="">
-         <p>${res[i].description} <br> Runtime: ${res[i].runtime} <br> Showtime: ${res[i].showtime} <br>
-         Available tickets: <span id="availableTicket">${tickets}</span><p>
-          <button id="button" type="button">Buy Ticket</button> 
-        
-         <p><hr><p>
-        
-       
-     </div>`
-     document.querySelector('button').innerHTML = "Available Ticket"
-     //document.querySelector("button").textContent = "Buy Ticket";
-    
+//Create fetch function to get the data from the db.json
+function fetchMovies(URL){
+    fetch(URL)
+    .then(resp => resp.json())
+    .then(movies => {
+        movies.forEach(movie => {
+            displayMovie(movie)
+        });
+    })
+}
+//function to display the titles of the movies as a list
+function displayMovie(movie){
+    const list = document.createElement('li')
+    list.style.cursor="cell"
+    list.textContent= (movie.title)
+    listHolder.appendChild(list)
+    addClickEvent()
+}
+//Adding the click event listener
+function addClickEvent(){
+    let children=listHolder.children
+    for(let i=0; i<children.length; i++){
+        let child=children[i]
+        // console.log(child) <= to check if have the right child
+        child.addEventListener('click',() => {
+            fetch(`${URL}/${i+1}`)
+            .then(res => res.json())
+            .then(movie => {
+                document.getElementById('buy-ticket').textContent = 'Buy Ticket'
+                setUpMovieDetails(movie)
+            })
+        })
     }
-    section.innerHTML = output})
+}
+//Posting movie details
+// poster to be dispalyed on the div with poster id
+function setUpMovieDetails(funMovie){
+    const preview = document.getElementById('poster')
+    preview.src = funMovie.poster;
+//title
+    const movieTitle = document.querySelector('#title');
+    movieTitle.textContent = funMovie.title;
+    //runtime
+    const movieTime = document.querySelector('#runtime');
+    movieTime.textContent = `${funMovie.runtime} minutes`;
+    //description
+    const movieDescription = document.querySelector('#film-info');
+    movieDescription.textContent = funMovie.description;
+    //Showtime
+    const showTime = document.querySelector('#showtime')
+    showTime.textContent = funMovie.showtime;
+    // available tickets =capacity - tickets sold
+    const tickets  = document.querySelector('#ticket-number')
+    tickets.textContent = funMovie.capacity -funMovie.tickets_sold;
+}
+// //Sold out
+const btn = document.getElementById('buy-ticket')
+        btn.addEventListener('click', function(event){
+            let remainingTickets = document.querySelector('#ticket-number').textContent
+            event.preventDefault()
+            if(remainingTickets > 0){
+                document.querySelector('#ticket-number').textContent  = remainingTickets-1
+            }
+            else if(parseInt(remTickets, 10)===0){
+                btn.textContent = 'Sold Out'
+            }
+    })

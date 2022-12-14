@@ -1,22 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flatdango</title>
-    <script defer src="./index.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8" />
+  <title>FLATDANGO</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Flatdango</h1>
-    <section>
-      <button id="button" type="button"></button>   
+  <!-- Heading -->
+  <div class="heading">
+    <div class="item">
+      <h2 class="ui header">
+        <i class="orange ticket icon"></i>
+        <div class="content">FLATDANGO</div>
+        <div id="subtitle">MOVIE TICKETS</div>
+      </h2>
+    </div>
+  </div>
+  <div class="ui centered grid">
+    <div class="four wide column">
+      <div class="list-container">
+        <!-- list og movie to be appended here -->
+        <ul class="ui divided list" id="films">
+          <li class="film item"></li>
+        </ul>
+      </div>
+    </div>
+    <!-- image -->
+    <div class="four wide column">
+      <img
+        id="poster"
+        src="assets/placeholderImage.png"
+        alt="[MOVIE TITLE]"
+      />
+    </div>
+    <!-- movie details -->
+    <section id="infobox">
+      <div class="four wide column">
+        <div class="ui cards" id="showing">
+          <div class="card">
+            <div id="title" class="title"></div>
+            <div id="runtime" class="meta">[RUNTIME] minutes</div>
+            <div class="content">
+              <div class="description">
+                <div id="film-info"></div>
+                <span id="showtime" class="ui label">[SHOWTIME]</span>
+                <span id="ticket-number">[--]</span> remaining tickets
+              </div>
+            </div>
+            <!-- Buying ticket -->
+            <div class="extra content">
+              <button id="buy-ticket" class="ui orange button">
+                BUY TICKET
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-   
+  </div>
+  <script src="/index.js"></script>
 </body>
-
-
 </html>
