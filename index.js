@@ -1,4 +1,4 @@
-let URL = 'http://localhost:3000/films'
+let URL = 'https://flatdjango-week-3-challenge.vercel.app/db.json'
 const listHolder = document.getElementById('films')
 document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementsByClassName('film item')[0].remove()
@@ -9,7 +9,7 @@ function fetchMovies(URL){
     fetch(URL)
     .then(resp => resp.json())
     .then(movies => {
-        movies.forEach(movie => {
+        movies.films.forEach(movie => {
             displayMovie(movie)
         });
     })
@@ -29,11 +29,11 @@ function addClickEvent(){
         let child=children[i]
         // console.log(child) <= to check if have the right child
         child.addEventListener('click',() => {
-            fetch(`${URL}/${i+1}`)
+            fetch(`${URL}`)
             .then(res => res.json())
             .then(movie => {
                 document.getElementById('buy-ticket').textContent = 'Buy Ticket'
-                setUpMovieDetails(movie)
+                setUpMovieDetails(movie.films[i])
             })
         })
     }
