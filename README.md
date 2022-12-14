@@ -18,8 +18,9 @@ Vue 2.6.11
 
 Then install the various packages from package.json npm install
 Create environment variables
-Use this JSON file for the server DB https://moringa.instructure.com/courses/185/files/152618?wrap=1
-IF ALL FAILS GO TO THE TERMINAL AND TYPE (json-server -w db.json ) AND YOU'LL SEE HOW IT LOOKS, lists of the movies on the left, picture then the buy ticket button
+
+Use this deployed link also from vercel
+*https://flatdjango-week-3-challenge.vercel.app/
 
  Author:
 Kariuki Esperance - Initial work - Esperance
