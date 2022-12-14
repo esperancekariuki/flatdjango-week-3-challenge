@@ -27,4 +27,4 @@ Version:
 v0.1.0
 
 License
-License: MIT Copyright (c) 2022 Daryl Wattima
+License: MIT Copyright (c) 2022  ESPERANCE KARIUKI
